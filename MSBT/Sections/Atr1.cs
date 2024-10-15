@@ -42,6 +42,7 @@
         public void Update()
         {
             uint size = sizeof(uint) * 2; // Marshal.SizeOf(_unknown_1) + Marshal.SizeOf(_unknown_1)
+            /* Stubbing out stuff because FEE
             if (_strings.Any(s => !string.IsNullOrEmpty(s)))
             {
                 size += (uint)(sizeof(uint) * _strings.Count // offsets
@@ -52,17 +53,22 @@
             {
                 _unknown_1 = 0;
             }
+            */
+            size += (uint)_strings.Count;
             section.size = size;
         }
 
         public ulong CalcSize()
         {
             ulong size = section.CalcSize() + sizeof(uint) * 2; // Marshal.SizeOf(_unknown_1) + Marshal.SizeOf(_unknown_1)
+            /* 
             if (_strings.Any(s => !string.IsNullOrEmpty(s)))
             {
                 size += (ulong)(sizeof(uint) * _strings.Count // offsets
                     + _strings.Select(s => Util.StringToRaw(s, header.encoding, header.converter).Count).Sum());
             }
+            */
+            size += (ulong)_strings.Count;
             return size;
         }
     }

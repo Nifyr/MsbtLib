@@ -16,6 +16,7 @@ namespace MsbtLib
             {
                 parameters.Add(converter.Convert(queue.DequeueUInt16()));
             }
+            /* These function very differently in FEE, perhaps each game has their own usage of these?
             switch (tag_group)
             {
                 case 0:
@@ -76,6 +77,7 @@ namespace MsbtLib
                     parameters.Add(tag_type); // yes, the tag_type is actually the parameter for PauseLengths. Thanks, Nintendo
                     return new PauseLength(parameters);
             }
+            */
             return new RawControl(tag_group, tag_type, parameters);
         }
         public static Control GetControl(string s)

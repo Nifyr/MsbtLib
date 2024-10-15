@@ -59,6 +59,9 @@ namespace MsbtLib
             WriteSection(atr1.section);
             writer.Write(msbt.header.converter.Convert((uint)atr1.Strings.Count));
             writer.Write(msbt.header.converter.Convert(atr1._unknown_1));
+            byte[] unk = new byte[atr1.Strings.Count];
+            writer.Write(unk);
+            /* 
             if (atr1.Strings.Any(s => !string.IsNullOrEmpty(s)))
             {
                 uint offset = sizeof(uint) * ((uint)atr1.Strings.Count + 2u); // sizeof(string_count) + sizeof(_unknown_1) + sizeof(uint) * string_count
@@ -73,6 +76,7 @@ namespace MsbtLib
                     writer.Write(s);
                 }
             }
+            */
             WritePadding();
         }
 

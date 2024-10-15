@@ -54,16 +54,27 @@ namespace MsbtLib
             uint string_count = header.converter.Convert(reader.ReadU32());
             uint _unknown_1 = header.converter.Convert(reader.ReadU32());
             List<string> strings = new();
-            if (section.size > 8u) {
+            if (string_count >= section.size - 8)
+            {
+                for (int i = 0; i < string_count; i++)
+                    strings.Add("");
+                reader.Read(string_count);
+            }
+            /* This part is way different in FEE for some reason, seems unused though
+            if (section.size > 8u)
+            {
                 List<uint> offsets = new();
-                foreach (var _ in Enumerable.Range(0, (int)string_count)) {
+                foreach (var _ in Enumerable.Range(0, (int)string_count))
+                {
                     offsets.Add(header.converter.Convert(reader.ReadU32()));
                 }
-                foreach (var i in Enumerable.Range(0, (int)string_count)) {
+                foreach (var i in Enumerable.Range(0, (int)string_count))
+                {
                     uint str_end = i == string_count - 1u ? section.size : offsets[i + 1];
                     strings.Add(Util.RawToString(reader.Read(str_end - offsets[i]).ToList(), header.encoding, header.converter));
                 }
             }
+            */
             return new Atr1(header, section, string_count, _unknown_1, strings);
         }
         public Lbl1 ReadLbl1(MSBT msbt)

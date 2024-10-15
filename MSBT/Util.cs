@@ -41,7 +41,8 @@ namespace MsbtLib
             while (queue.Count > 0)
             {
                 char c = queue.Dequeue();
-                if (c == control)
+                if (c == control // Oh no. What if the text is actually just supposed to have a '<' character in it?
+                    && string.Concat(queue.Take(3)) == "raw")
                 {
                     char lastChar = c;
                     sequence.Clear();
